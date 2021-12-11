@@ -1,0 +1,34 @@
+ 
+    //Note- This module itself will act as the main control unit with 2 submodules
+    //Instantiation of other units:
+    
+    //ALU Instantiation
+    
+    alu cpu_1 (  .alu_opn(alu_opn), .alu_inp1(alu_inp1), .alu_inp2(alu_inp2), .alu_zero_sig(alu_zero_sig), .alu_out(alu_out)   );
+    
+    //I/p to ALU are two mux outputs- one after Read1-regfile o/p and other after Read2-regfile o/p  
+    
+     //Idecode instantiation
+    idecode idc( .idata(idata),
+                .reset(reset), 
+                .rrdata2(rrdata2), .drdata(drdata), .daddr(daddr), .dwdata(dwdata), .dwe(dwe), .mux_alu_or_dmem_sig(mux_alu_or_dmem_sig), .mux_alu_or_dmem_inp2(mux_alu_or_dmem_inp2), .is_pc(is_pc), .is_imm(is_imm), .mux_alu2_in2(mux_alu2_in2), .raddr3(raddr3), .alu_opn(alu_opn), .raddr1(raddr1), .raddr2(raddr2), .rwe(rwe) , .alu_out(alu_out), .pc_from_reg(pc_from_reg) , .reg_pc_update_val(reg_pc_update_val), .mux_alu_or_dmem_enable(mux_alu_or_dmem_enable), .mux_pc_update_sig(mux_pc_update_sig) , .imm_pc_off(imm_pc_off) , .alu_zero_sig(alu_zero_sig) , .iaddr(iaddr) );
+    
+    //MUX_alu1 instantiation
+    mux_alu1 mal1(.rrdata1(rrdata1), .iaddr(iaddr), .is_pc(is_pc), .alu_inp1(alu_inp1));
+    //MUX_ALU2 instantiation
+    mux_alu2 mal2( .mux_alu2_in2(mux_alu2_in2), .rrdata2(rrdata2), .reset(reset), .is_imm(is_imm), .alu_inp2(alu_inp2));
+    
+    //MUX_ALU_OR_DMEM instantiation
+    mux_alu_or_dmem madm( .alu_out(alu_out), .mux_alu_or_dmem_inp2(mux_alu_or_dmem_inp2), .mux_alu_or_dmem_sig(mux_alu_or_dmem_sig), .rwdata(rwdata) , .reg_pc_update_val(reg_pc_update_val) );
+    
+    //MUX_pc_update instantiation
+    mux_pc_update mpu( .iaddr(iaddr) , .imm_pc_off(imm_pc_off), .pc_from_reg(pc_from_reg), .mux_pc_update_sig(mux_pc_update_sig), .iaddr_wdata(iaddr_wdata) );
+    
+    
+    //Reg File Instantiation
+    
+    reg_file cpu_2 ( .clk(clk), .raddr1(raddr1) , .reset(reset) , .raddr2(raddr2), .raddr3(raddr3), .rwdata(rwdata), .rwe(rwe), .rrdata1(rrdata1), .rrdata2(rrdata2)   );
+    
+    
+    
+    
