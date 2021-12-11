@@ -1,0 +1,3 @@
+read_verilog cpu.v alu.v reg_file.v mux_alu1.v mux_alu2.v mux_pc_update.v mux_alu_or_dmem.v idecode.v
+synth_xilinx -top cpu
+write_verilog cpu_synth.v

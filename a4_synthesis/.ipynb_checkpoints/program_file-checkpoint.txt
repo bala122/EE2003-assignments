@@ -1,0 +1,11 @@
+cpu.v
+cpu_tb.v
+dmem.v
+imem.v
+reg_file.v
+alu.v
+mux_alu1.v
+mux_alu2.v
+mux_pc_update.v
+mux_alu_or_dmem.v
+idecode.v
